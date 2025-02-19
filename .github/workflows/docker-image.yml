@@ -8,17 +8,21 @@ on:
       dockerfile:
         description: 'Path to the Dockerfile'
         required: true
+        type: string
         default: './Dockerfile'
       image_name:
         description: 'Docker image name'
-        required: true     
+        required: true
+        type: string
       registry:
         description: 'Docker registry URL'
         required: true
+        type: string
         default: 'docker.io'
       tag:
         description: 'Tag for the Docker image'
         required: true
+        type: string
         default: 'latest'
 
 jobs:
