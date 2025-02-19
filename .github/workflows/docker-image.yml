@@ -19,6 +19,10 @@ on:
         required: true
         type: string
         default: 'latest'
+      secrets:
+         type: string
+         required: true
+         
 
 jobs:
   build-and-push:
