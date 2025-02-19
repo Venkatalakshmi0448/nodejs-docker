@@ -14,11 +14,6 @@ on:
         description: 'Docker image name'
         required: true
         type: string
-      registry:
-        description: 'Docker registry URL'
-        required: true
-        type: string
-        default: 'docker.io'
       tag:
         description: 'Tag for the Docker image'
         required: true
@@ -48,7 +43,7 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }} 
         push: true
-        tags: ${{ inputs.registry }}/${{ inputs.image_name }}:${{ inputs.tag }}
+        tags: ${{ inputs.image_name }}:${{ inputs.tag }}
 
     - name: Logout from DockerHub
       run: docker logout
