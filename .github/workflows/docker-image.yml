@@ -1,4 +1,8 @@
 name: Build and Push Docker Image
+on:
+  push:
+    branches:
+      - main
 
 on:
   workflow_call:  # Allows this workflow to be reused by other workflows
