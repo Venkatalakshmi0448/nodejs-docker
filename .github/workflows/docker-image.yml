@@ -14,6 +14,7 @@ on:
         description: 'Docker image name'
         required: true
         type: string
+        default: my-image
       tags:
         description: 'Tag for the Docker image'
         required: true
@@ -36,13 +37,18 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+    - name: Debug - Print image name and tag
+      run: |
+            echo "Image Name: ${{ inputs.image_name }}"
+            echo "Tag: ${{ inputs.tag }}"
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
         context: .
         file: ${{ inputs.dockerfile }} 
         push: true
-        tags: ${{ inputs.image_name }}:${{ inputs.tags || 'latest'}}
+        tags: ${{ inputs.image_name || 'default-image'  }}:${{ inputs.tags || 'latest'}}
 
     - name: Logout from DockerHub
       run: docker logout
