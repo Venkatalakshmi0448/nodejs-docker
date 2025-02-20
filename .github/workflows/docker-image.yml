@@ -10,15 +10,16 @@ on:
         required: true
         type: string
         default: './Dockerfile'
-      dockerhub_image:
-        description: 'Docker image name'
+      dockerhub_repo:
+        description: 'Docker repo name'
         required: true
         type: string
-        default: 'my-image'
+        default: 'venkatalakshmi0448/my-image'
       tags:
         description: 'Tag for the Docker image'
         required: true
         type: string
+        default: 'latest'
          
 jobs:
   build-and-push:
@@ -37,10 +38,10 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    - name: Debug - Print image name and tag
+    - name: Debug - Print repository and tag
       run: |
-            echo "Image Name: ${{ inputs.image_name }}"
-            echo "Tag: ${{ inputs.tag }}"
+        echo "Docker Hub Repository: ${{ inputs.dockerhub_repo }}"
+        echo "Tag: ${{ inputs.dockerhub_tag }}"
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
@@ -48,7 +49,7 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }} 
         push: true
-        tags: ${{ inputs.dockerhub_image || 'my-image' }}:${{ inputs.tags || 'latest'}}
+        tags: ${{ inputs.dockerhub_repo }}:${{ inputs.dockerhub_tag }}
 
     - name: Logout from DockerHub
       run: docker logout
