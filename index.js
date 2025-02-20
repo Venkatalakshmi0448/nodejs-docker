@@ -1,11 +1,15 @@
-const express = require('express')
+var express = require('express');
+var app = express();
 
-const app = express()
+app.get('/', function (req, res) {
+    res.send('{ "response": "Hello From Thetips4you" }');
+});
 
-app.get('/', (req, res) => {
-    res.send("Hi there")
-})
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000')
-})
+app.get('/will', function (req, res) {
+    res.send('{ "response": "Hello World" }');
+});
+app.get('/ready', function (req, res) {
+    res.send('{ "response": " Great!, It works!" }');
+});
+app.listen(process.env.PORT || 3000);
+module.exports = app;
