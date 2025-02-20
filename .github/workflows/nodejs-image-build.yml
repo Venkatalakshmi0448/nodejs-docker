@@ -15,6 +15,11 @@ on:
         required: true
         type: string
         default: 'venkatalakshmi0448/nodejs-docker'
+      deploy_env:
+        description: 'Deployment environment'
+        required: true
+        type: string
+        default: 'staging'
 
 jobs:
   build-and-push:
