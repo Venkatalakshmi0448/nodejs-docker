@@ -60,7 +60,7 @@ jobs:
         if: matrix.step == 'docker-build'
         run: |
               echo "Validating Docker build step"
-              docker build -f ${{ inputs.dockerfile }} --progress=plain .
+              docker build -f ${{ inputs.dockerfile }} .
 
       # Docker push step
       - name: Push Docker image
