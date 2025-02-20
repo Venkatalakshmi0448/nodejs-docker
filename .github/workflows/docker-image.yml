@@ -19,7 +19,7 @@ on:
         description: 'Tag for the Docker image'
         required: true
         type: string
-        default: latest
+        default: 'latest'
 
 jobs:
   build-and-push:
@@ -42,8 +42,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ${{ inputs.dockerfile }}
         push: true
+        file: ${{ inputs.dockerfile }}
         tags: ${{ inputs.dockerhub_repo }}:${{ inputs.tags }}
         
     - name: Logout from DockerHub
