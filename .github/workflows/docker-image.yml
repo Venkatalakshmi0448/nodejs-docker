@@ -14,7 +14,7 @@ on:
         description: 'Docker image name'
         required: true
         type: string
-      tag:
+      tags:
         description: 'Tag for the Docker image'
         required: true
         type: string
@@ -42,7 +42,7 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }} 
         push: true
-        tag: ${{ inputs.image_name }}:${{ inputs.tag || 'latest'}}
+        tags: ${{ inputs.image_name }}:${{ inputs.tags || 'latest'}}
 
     - name: Logout from DockerHub
       run: docker logout
