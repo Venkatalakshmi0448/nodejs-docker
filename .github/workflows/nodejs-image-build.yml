@@ -43,7 +43,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ${{ inputs.dockerfile }}  # Use `inputs.dockerfile` instead of `github.event.inputs.dockerfile`
+        file: ${{ inputs.dockerfile }} 
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
