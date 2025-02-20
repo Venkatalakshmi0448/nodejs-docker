@@ -53,18 +53,24 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       # Docker build step
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Build Docker image
         if: matrix.step == 'docker-build'
         run: |
-          echo "Validating Docker build step"
-          docker build -f ${{ inputs.dockerfile }} .
+              echo "Validating Docker build step"
+              docker build -f ${{ inputs.dockerfile }} --progress=plain .
 
       # Docker push step
       - name: Push Docker image
         if: matrix.step == 'docker-push'
         run: |
-          echo "Validating Docker push step"
-          docker push ${{ inputs.dockerhub_repo }}
+             echo "Validating Docker push step"
+             docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+             echo "Pushing Docker image to DockerHub"
+             docker push ${{ inputs.dockerhub_repo }}:latest
+             docker push ${{ inputs.dockerhub_repo }}
 
   validate-environment:
     runs-on: ubuntu-latest
