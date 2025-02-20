@@ -1,14 +1,55 @@
-- name: Log in to DockerHub
-  run: |
-    echo "Logging into DockerHub"
-    echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+name: Build and Push Docker Image
+on:
+  push:
+    branches:
+      - main
+  workflow_call:  # Allows this workflow to be reused by other workflows
+    inputs:
+      dockerfile:
+        description: 'Path to the Dockerfile'
+        required: true
+        type: string
+        default: './Dockerfile'
+      dockerhub_repo:
+        description: 'Docker repo name (e.g., user/repo)'
+        required: true
+        type: string
+        default: 'venkatalakshmi0448/my-image'  # Your Docker Hub repository
+      tags:
+        description: 'Tag for the Docker image'
+        required: true
+        type: string
+        default: 'latest'  # Default tag for the image
 
-- name: Build Docker image manually (test)
-  run: |
-    echo "Building Docker image"
-    docker build -t venkatalakshmi0448/my-image:latest .
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
 
-- name: Push Docker image manually (test)
-  run: |
-    echo "Pushing Docker image to DockerHub"
-    docker push venkatalakshmi0448/my-image:latest
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Debug - Print repository and tag
+      run: |
+        echo "Docker Hub Repository: ${{ inputs.dockerhub_repo }}"
+        echo "Tag: ${{ inputs.tags }}"
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        file: ${{ inputs.dockerfile }}
+        push: true
+        tags: ${{ inputs.dockerhub_repo }}:${{ inputs.tags }}
+
+    - name: Logout from DockerHub
+      run: docker logout
