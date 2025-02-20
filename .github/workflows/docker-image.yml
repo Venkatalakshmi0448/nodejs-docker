@@ -44,8 +44,8 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }}
         image: ${{ inputs.dockerhub-repo }}
-        push: true
         tags: ${{ inputs.tags }}
-
+        push: true
+        
     - name: Logout from DockerHub
       run: docker logout
