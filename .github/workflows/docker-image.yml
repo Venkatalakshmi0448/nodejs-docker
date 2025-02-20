@@ -10,11 +10,6 @@ on:
         required: true
         type: string
         default: './Dockerfile'
-      dockerhub_repo:
-        description: 'Docker Hub repository name'
-        required: true
-        type: string
-        default: 'venkatalakshmi0448/my-image'
       dockerhub_image:
         description: 'Docker image name'
         required: true
@@ -53,7 +48,7 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }} 
         push: true
-        tags: ${{ inputs.dockerhub_repo }}:${{ inputs.dockerhub_image }}:${{ inputs.tags || 'latest'}}
+        tags: ${{ inputs.dockerhub_image || 'my-image' }}:${{ inputs.tags || 'latest'}}
 
     - name: Logout from DockerHub
       run: docker logout
