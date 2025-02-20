@@ -11,7 +11,7 @@ on:
         type: string
         default: './Dockerfile'
       dockerhub_repo:
-        description: 'Docker repo name (e.g., user/repo)'
+        description: 'Dockerhub repo name'
         required: true
         type: string
         default: 'venkatalakshmi0448/my-image'
@@ -37,11 +37,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-    - name: Debug - Print repository and tag
-      run: |
-        echo "Docker Hub Repository: ${{ inputs.dockerhub_repo }}"
-        echo "Tag: ${{ inputs.tags }}"
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
