@@ -41,7 +41,7 @@ jobs:
     - name: Debug - Print repository and tag
       run: |
         echo "Docker Hub Repository: ${{ inputs.dockerhub_repo }}"
-        echo "Tag: ${{ inputs.dockerhub_tag }}"
+        echo "Tag: ${{ inputs.tags }}"
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
@@ -49,7 +49,7 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }} 
         push: true
-        tags: ${{ inputs.dockerhub_repo }}:${{ inputs.dockerhub_tag }}
+        tags: ${{ inputs.dockerhub_repo }}:${{ inputs.tags }}
 
     - name: Logout from DockerHub
       run: docker logout
