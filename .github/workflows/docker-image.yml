@@ -11,7 +11,7 @@ on:
         type: string
         default: './Dockerfile'
       dockerhub_repo:
-        description: 'Docker repo name'
+        description: 'Docker repo name (e.g., user/repo)'
         required: true
         type: string
         default: 'venkatalakshmi0448/my-image'
@@ -20,7 +20,7 @@ on:
         required: true
         type: string
         default: 'latest'
-         
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ${{ inputs.dockerfile }} 
+        file: ${{ inputs.dockerfile }}
         push: true
         tags: ${{ inputs.dockerhub_repo }}:${{ inputs.tags }}
 
