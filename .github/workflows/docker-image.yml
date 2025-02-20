@@ -38,6 +38,12 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+    - name: Extract metadata (tags, labels) for docker
+      id: meta
+      uses: docker/metadata-action@v3
+      with: 
+         images: venkatalakshmi0448/nodejs-docker
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
@@ -45,6 +51,7 @@ jobs:
         file: ${{ inputs.dockerfile }}  # Use `inputs.dockerfile` instead of `github.event.inputs.dockerfile`
         push: true
         tags: ${{ inputs.dockerhub_repo }}:${{ inputs.tag }}  # Use `inputs.tag` instead of `github.event.inputs.tag`
-        
+      
+    
     - name: Logout from DockerHub
       run: docker logout
