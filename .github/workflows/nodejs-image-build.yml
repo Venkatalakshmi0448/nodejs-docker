@@ -47,11 +47,3 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-
-    - name: Deploy to Kubernetes
-      uses: azure/k8s-actions@v1.0
-      with:
-        kubeconfig: ${{ secrets.KUBE_CONFIG }}
-        kubectl_command: |
-          kubectl set image deployment/my-app my-app=venkatalakshmi0448/nodejs-docker:${{ steps.meta.outputs.tags }}
-          kubectl rollout status deployment/my-app
