@@ -14,12 +14,12 @@ on:
         description: 'Dockerhub repo name'
         required: true
         type: string
-        default: 'venkatalakshmi0448/my-image'
+        default: 'venkatalakshmi0448/myimage'
       tags:
         description: 'Tag for the Docker image'
         required: true
         type: string
-        default: 'latest'
+        default: latest
 
 jobs:
   build-and-push:
