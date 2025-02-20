@@ -14,12 +14,12 @@ on:
         description: 'Docker repo name (e.g., user/repo)'
         required: true
         type: string
-        default: 'venkatalakshmi0448/my-image'
+        default: 'venkatalakshmi0448/my-image'  # Your Docker Hub repository
       tags:
         description: 'Tag for the Docker image'
         required: true
         type: string
-        default: 'latest'
+        default: 'latest'  # Default tag for the image
 
 jobs:
   build-and-push:
