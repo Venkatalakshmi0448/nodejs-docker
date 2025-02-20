@@ -42,9 +42,9 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ${{ github.event.inputs.dockerfile }}
+        file: ${{ inputs.dockerfile }}  # Use `inputs.dockerfile` instead of `github.event.inputs.dockerfile`
         push: true
-        tags: ${{ github.event.inputs.dockerhub_repo }}:${{ github.event.inputs.tag }}
+        tags: ${{ inputs.dockerhub_repo }}:${{ inputs.tag }}  # Use `inputs.tag` instead of `github.event.inputs.tag`
         
     - name: Logout from DockerHub
       run: docker logout
