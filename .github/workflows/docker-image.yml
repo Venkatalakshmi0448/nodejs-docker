@@ -14,7 +14,7 @@ on:
         description: 'Dockerhub repo name'
         required: true
         type: string
-        default: 'venkatalakshmi0448/myimage'
+        default: 'venkatalakshmi0448/nodejs-docker'
       tags:
         description: 'Tag for the Docker image'
         required: true
