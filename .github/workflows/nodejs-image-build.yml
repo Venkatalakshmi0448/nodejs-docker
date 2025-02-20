@@ -15,11 +15,6 @@ on:
         required: true
         type: string
         default: 'venkatalakshmi0448/nodejs-docker'
-      tag:
-        description: 'Tag for the Docker image'
-        required: true
-        type: string
-        default: 'latest'
 
 jobs:
   build-and-push:
@@ -50,7 +45,8 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }}  # Use `inputs.dockerfile` instead of `github.event.inputs.dockerfile`
         push: true
-        tag: ${{ inputs.dockerhub_repo }}${{ inputs.tag }}  # Use `inputs.tag` instead of `github.event.inputs.tag`
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
       
     
     - name: Logout from DockerHub
