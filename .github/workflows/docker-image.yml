@@ -42,7 +42,7 @@ jobs:
         context: .
         file: ${{ inputs.dockerfile }} 
         push: true
-        tags: ${{ inputs.image_name }}:${{ inputs.tag }}
+        tag: ${{ inputs.image_name }}:${{ inputs.tag || 'latest'}}
 
     - name: Logout from DockerHub
       run: docker logout
