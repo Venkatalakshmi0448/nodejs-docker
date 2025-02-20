@@ -18,7 +18,6 @@ on:
         description: 'Tag for the Docker image'
         required: true
         type: string
-        default: 'my-image:latest'
          
 jobs:
   build-and-push:
