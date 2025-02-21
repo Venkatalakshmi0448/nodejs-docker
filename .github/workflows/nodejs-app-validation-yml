@@ -9,7 +9,6 @@ on:
         description: 'Branch to validate'
         required: true
         type: string
-        default: main
       dockerfile:
         description: 'Path to the Dockerfile'
         required: true
