@@ -1,8 +1,5 @@
 name: Validate Application Pipeline
 on:
-  push:
-    branches:
-      - main
   workflow_call:
     inputs:
       branch:
@@ -52,8 +49,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-     - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+       - name: Check Docker login status
+         run: |
+           echo "Docker login successful!"
+           docker info
+     
+      # Docker Buildx setup
+        - name: Set up Docker Buildx
+          if: matrix.step == 'docker-build-push'
+          uses: docker/setup-buildx-action@v2
+
+        - name: Extract metadata (tags, labels) for docker
+          id: meta
+          uses: docker/metadata-action@v3
+          with: 
+              images: venkatalakshmi0448/nodejs-docker
 
       # Docker build and push step
       - name: build and Push Docker image
