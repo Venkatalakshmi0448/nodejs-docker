@@ -55,6 +55,12 @@ jobs:
         run: |
             echo "Docker login successful!"
             docker info
+
+    # Check if Dockerfile exists (debugging step)
+      - name: Check if Dockerfile exists
+        run: |
+            echo "Checking Dockerfile location..."
+            ls -l ${{ inputs.dockerfile }}
      
       # Docker Buildx setup
       - name: Set up Docker Buildx
