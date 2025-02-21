@@ -34,7 +34,7 @@ jobs:
     
     strategy:
       matrix:
-        step: ['checkout', 'docker-login', 'docker-build', 'docker-push']
+        step: ['checkout', 'docker-login', 'docker-build-push']
 
     steps:
       # Checkout step
@@ -57,7 +57,7 @@ jobs:
 
       # Docker build and push step
       - name: build and Push Docker image
-        if: matrix.step == 'docker-push'
+        if: matrix.step == 'docker-build-push'
         uses: docker/build-push-action@v3
         with:
           context: .
