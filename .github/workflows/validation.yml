@@ -56,13 +56,17 @@ jobs:
             echo "Docker login successful!"
             docker info
 
-    # Check if Dockerfile exists (debugging step)
-      - name: Check if dockerfile exists
+    # Debugging step to check current directory and list files
+      - name: Debug:Check current directory and list files
         run: |
-            echo "Checking dockerfile location..."
-            ls -l ${{ inputs.dockerfile }}
+          echo "Current working directory:"
+          pwd  # Print working directory
+          echo "Listing all files in the current directory:"
+          ls -l  # List files in the current directory
+          echo "Listing all files recursively:"
+          ls -R  # List files recursively
      
-      # Docker Buildx setup
+   # Docker Buildx setup
       - name: Set up Docker Buildx
         if: ${{ matrix.step == 'docker-build-push' }}
         uses: docker/setup-buildx-action@v2
@@ -73,7 +77,7 @@ jobs:
         with: 
             images: venkatalakshmi0448/nodejs-docker
 
-      # Docker build and push step
+   # Docker build and push step
       - name: build and Push Docker image
         if: ${{ matrix.step == 'docker-build-push' }}
         uses: docker/build-push-action@v3
