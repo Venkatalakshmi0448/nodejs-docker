@@ -36,7 +36,7 @@ jobs:
         step: ['checkout', 'docker-login', 'docker-build-push']
 
     steps:
-      # Checkout step
+     # Checkout step
       - name: Checkout code
         if: matrix.step == 'checkout'
         uses: actions/checkout@v3
