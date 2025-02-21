@@ -1,6 +1,9 @@
 name: Validate Application Pipeline
 on:
-  workflow_call:
+  push:
+    branches:
+      - main
+   workflow_call:
     inputs:
       branch:
         description: 'Branch to validate'
