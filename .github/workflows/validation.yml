@@ -10,7 +10,7 @@ on:
         required: true
         type: string
       dockerfile:
-        description: 'Path to the Dockerfile'
+        description: 'Path to the dockerfile'
         required: true
         type: string
         default: './dockerfile'
@@ -57,9 +57,9 @@ jobs:
             docker info
 
     # Check if Dockerfile exists (debugging step)
-      - name: Check if Dockerfile exists
+      - name: Check if dockerfile exists
         run: |
-            echo "Checking Dockerfile location..."
+            echo "Checking dockerfile location..."
             ls -l ${{ inputs.dockerfile }}
      
       # Docker Buildx setup
