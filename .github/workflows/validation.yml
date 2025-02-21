@@ -36,40 +36,40 @@ jobs:
         step: ['checkout', 'docker-login', 'docker-build-push']
 
     steps:
-     # Checkout step
+      # Checkout step
       - name: Checkout code
-        if: matrix.step == 'checkout'
+        if: ${{ matrix.step == 'checkout' }}
         uses: actions/checkout@v3
         with:
           ref: ${{ inputs.branch }}
         
       # Docker login step
       - name: Docker Login
-        if: matrix.step == 'docker-login'
+        if: ${{ matrix.step == 'docker-login' }}
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-       - name: Check Docker login status
-         run: |
-           echo "Docker login successful!"
-           docker info
+      - name: Check Docker login status
+        run: |
+            echo "Docker login successful!"
+            docker info
      
       # Docker Buildx setup
-        - name: Set up Docker Buildx
-          if: matrix.step == 'docker-build-push'
-          uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        if: ${{ matrix.step == 'docker-build-push' }}
+        uses: docker/setup-buildx-action@v2
 
-        - name: Extract metadata (tags, labels) for docker
-          id: meta
-          uses: docker/metadata-action@v3
-          with: 
-              images: venkatalakshmi0448/nodejs-docker
+      - name: Extract metadata (tags, labels) for docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with: 
+            images: venkatalakshmi0448/nodejs-docker
 
       # Docker build and push step
       - name: build and Push Docker image
-        if: matrix.step == 'docker-build-push'
+        if: ${{ matrix.step == 'docker-build-push' }}
         uses: docker/build-push-action@v3
         with:
           context: .
